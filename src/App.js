@@ -5,20 +5,25 @@ import dividerMobile from './pattern-divider-mobile.svg';
 import dividerDesktop from './pattern-divider-desktop.svg';
 import iconButton from './icon-dice.svg';
 import { Button } from './Components/Button';
+import LoadingIcon from './Components/LoadingIcon';
 
 function App() {
   const [advice, setAdvice] = useState('');
   const [adviceCount, setAdviceCount] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchAdvice = () => {
+    setIsLoading(true);
     fetch('https://api.adviceslip.com/advice')
       .then((response) => response.json())
       .then((data) => {
         const adviceData = data.slip.advice;
         setAdvice(adviceData);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error(error);
+        setIsLoading(false);
       });
   };
 
@@ -35,7 +40,11 @@ function App() {
     <div className='container'>
       <div className='content-block'>
         <h1 className='title'>Advice #{adviceCount}</h1>
-        <p className='advice-text'>{`"${advice}"`}</p>
+        {isLoading ? (
+          <LoadingIcon /> 
+        ) : (
+          <p className='advice-text'>{`"${advice}"`}</p>
+        )}
         <img className='divider-img mobile' src={dividerMobile} alt="Divider Image" />
         <img className='divider-img desktop' src={dividerDesktop} alt="Divider Image" />
         <Button onClick={fetchAdvice}>
