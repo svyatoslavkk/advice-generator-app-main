@@ -8,30 +8,37 @@ import { Button } from './Components/Button';
 
 function App() {
   const [advice, setAdvice] = useState('');
+  const [adviceCount, setAdviceCount] = useState(null);
 
-  const fetchAdvice = async () => {
+  const fetchAdvice = () => {
     fetch('https://api.adviceslip.com/advice')
       .then((response) => response.json())
       .then((data) => {
-        const adviceData = data.slip.advice
+        const adviceData = data.slip.advice;
+        setAdvice(adviceData);
       })
       .catch((error) => {
         console.error(error);
       });
   };
-  
+
   useEffect(() => {
+    setAdviceCount(-1);
     fetchAdvice();
   }, []);
+
+  useEffect(() => {
+    setAdviceCount((prevCount) => prevCount + 1);
+  }, [advice]);
 
   return (
     <div className='container'>
       <div className='content-block'>
-        <h1 className='title'>Advice #117</h1>
-        <p className='advice-text'>"It is easy to sit up and take notice, what's difficult is getting up and taking action."</p>
+        <h1 className='title'>Advice #{adviceCount}</h1>
+        <p className='advice-text'>{`"${advice}"`}</p>
         <img className='divider-img mobile' src={dividerMobile} alt="Divider Image" />
         <img className='divider-img desktop' src={dividerDesktop} alt="Divider Image" />
-        <Button>
+        <Button onClick={fetchAdvice}>
           <img className='icon-button' src={iconButton} alt="Icon Button" />
         </Button>
       </div>
