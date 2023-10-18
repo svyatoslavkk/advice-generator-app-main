@@ -16,9 +16,12 @@ export const Button = styled.button`
     transform: translateX(-50%);
     cursor: pointer;
     transition: 0.1s ease;
-    &:hover,
-    &:active,
-    &:focus {
+    &:hover {
         box-shadow: 0 0 36px hsl(150, 100%, 66%);
+    }
+
+    &:not(:active),
+    &:not(:focus) {
+        transition: 0.5s ease;
     }
 `;

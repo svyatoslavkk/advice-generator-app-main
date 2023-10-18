@@ -98,12 +98,6 @@ p {
     transition: 0.1s ease;
 }
 
-.button-block:hover,
-.button-block:active,
-.button-block:focus {
-    box-shadow: 0 0 36px var(--neon-green);
-}
-
 @media (min-width: 1440px) {
     .content-block {
         max-width: 544px;
