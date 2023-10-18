@@ -3,6 +3,6 @@ import './LoadingIcon.scss';
 
 export default function LoadingIcon() {
     return (
-        <div className="loading-spinner"></div>
+        <div className="loading-spinner"></div> 
     );
   }
